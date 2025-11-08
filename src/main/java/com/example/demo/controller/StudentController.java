@@ -6,6 +6,8 @@ import com.example.demo.entity.Student;
 import com.example.demo.service.StudentService;
 
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 @RestController
 @RequestMapping("/students")
 public class StudentController {
@@ -18,8 +20,10 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public Student getStudentById(@PathVariable Long id) {
-        return studentService.getStudentById(id);
+    public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
+        return studentService.getStudentById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -28,12 +32,16 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public Student updateStudent(@PathVariable Long id, @RequestBody Student studentDetails) {
-        return studentService.updateStudent(id, studentDetails);
+    public ResponseEntity<Student> updateStudent(@PathVariable Long id, @RequestBody Student studentDetails) {
+        return studentService.updateStudent(id, studentDetails)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStudent(@PathVariable Long id) {
-        studentService.deleteStudent(id);
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+        return studentService.deleteStudent(id)
+               ? ResponseEntity.noContent().build()
+               : ResponseEntity.notFound().build();
     }
 }
