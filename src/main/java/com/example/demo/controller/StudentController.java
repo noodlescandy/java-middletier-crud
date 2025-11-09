@@ -1,15 +1,14 @@
 package com.example.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.http.ResponseEntity;
 import com.example.demo.entity.Student;
 import com.example.demo.service.StudentService;
-
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 @RestController
 @RequestMapping("/students")
+@CrossOrigin // needed for local testing with frontend on different port.
 public class StudentController {
     @Autowired
     private StudentService studentService;
