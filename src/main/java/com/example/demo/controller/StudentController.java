@@ -8,7 +8,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/students")
-@CrossOrigin // needed for local testing with frontend on different port.
+@CrossOrigin 
+// @CrossOrigin was needed for local testing with frontend on different port, 
+// but it would not be needed in production if served from same origin, 
+// especially if further authentication were to be added later.
 public class StudentController {
     @Autowired
     private StudentService studentService;

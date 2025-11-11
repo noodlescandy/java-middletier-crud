@@ -14,12 +14,12 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    // list of students instead of optional b/c empty list is more appropriate than null.
-    public List<Student> getAllStudents() { // interactions with api should not have internals exposed.
+    // list of students instead of optional b/c empty list is more appropriate than null in case of no students.
+    public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
 
-    // get student by id wrapped in optional to handle not found case.get student by id wrapped in optional to handle not found case.
+    // get student by id wrapped in optional to handle not found case
     public Optional<Student> getStudentById(Long id) {
         return studentRepository.findById(id);
     }
@@ -30,7 +30,7 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    // update and return student wrapped in optional to handle not found case.
+    // update and return student wrapped in optional to handle id not found case.
     public Optional<Student> updateStudent(Long id, Student studentDetails) {
         return studentRepository.findById(id)
             .map(student -> {
@@ -40,7 +40,7 @@ public class StudentService {
         });
     }
 
-    // attempts to delete student, returns false if not found.
+    // attempts to delete student, returns false if student not found.
     public boolean deleteStudent(Long id) {
         if (!studentRepository.existsById(id)) {
             return false;

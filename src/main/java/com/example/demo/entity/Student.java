@@ -11,7 +11,8 @@ public class Student {
     private Long id; // Primary key
 
     private String name;
-    // does this need other information?
+    // does this need other information? Requirements don't specify, so keeping it simple.
+    // Adding things like GPA would be simpler than adding a whole new entity for courses/enrollments.
 
     public Long getId() {
         return id;
